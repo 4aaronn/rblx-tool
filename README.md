@@ -14,6 +14,7 @@ then run the exe (if its detected as virus  not my fault (i used auto py to exe)
  by aqua team
  
  https://discord.gg/sPyXsFmf
+ install required files here (just a folder)
 
  !! need boost for my serv so pls boost!!
 
