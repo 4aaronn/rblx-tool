@@ -66,11 +66,14 @@
     </section>
 
     <script>
-        function copyScript() {
-            const text = 'loadstring(game:HttpGet("https://sync.xyz/api/v7"))()';
-            navigator.clipboard.writeText(text);
-            alert("Loader copied to clipboard!");
-        }
+<div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex items-center">
+    <code class="px-4 text-blue-400 text-sm" id="script-path">
+        loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+    </code>
+    <button onclick="copyScript()" class="bg-zinc-800 p-3 rounded-lg hover:bg-zinc-700 transition">
+        <i class="fa-regular fa-copy"></i>
+    </button>
+</div>
     </script>
 </body>
 </html>
