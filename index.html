@@ -10,38 +10,34 @@
             font-family: "Times New Roman", serif; 
             color: #000000; 
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 50px 20px;
-        }
-
-        h1 {
-            font-size: 60px;
-            margin-bottom: 30px;
-            letter-spacing: -2px;
-        }
-
-        .image-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
             align-items: center;
+        }
+
+        /* Shuffle Container */
+        #main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
             width: 100%;
         }
 
+        h1 { font-size: 60px; margin: 0; letter-spacing: -2px; }
+
         .enormous-waifu {
-            width: 800px; /* Massive size */
+            width: 800px;
             max-width: 95vw;
             border: 1px solid #eee;
             box-shadow: 5px 5px 0px #f0f0f0;
         }
 
         .controls {
-            margin-top: 50px;
             text-align: center;
             width: 100%;
-            max-width: 800px;
+            max-width: 700px;
             background: #fdfdfd;
             padding: 30px;
             border: 1px dashed #ccc;
@@ -65,10 +61,10 @@
             border-left: 2px solid #fff;
             border-right: 2px solid #7b7b7b;
             border-bottom: 2px solid #7b7b7b;
-            padding: 10px 30px;
-            font-size: 18px;
+            padding: 15px 40px;
+            font-size: 20px;
             cursor: pointer;
-            font-family: Arial, sans-serif;
+            font-weight: bold;
         }
 
         .classic-btn:active {
@@ -79,54 +75,62 @@
         }
 
         .discord-link {
-            margin-top: 50px;
             color: #0000ff;
-            font-size: 16px;
+            font-size: 20px;
             text-decoration: underline;
-        }
-
-        .footer-text {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #999;
         }
     </style>
 </head>
 <body>
 
-    <h1>waifus</h1>
+    <div id="main-container">
+        <h1 id="item-1">waifus</h1>
 
-    <div class="image-container">
-        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="enormous-waifu">
-        <img src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="enormous-waifu">
-        <img src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="enormous-waifu">
-    </div>
-
-    <div class="controls">
-        <code class="script-box" id="loader-text">
-            loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
-        </code>
+        <img id="item-2" src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="enormous-waifu">
         
-        <button class="classic-btn" onclick="copyLoader()">
-            Copy Script
-        </button>
+        <div id="item-3" class="controls">
+            <code class="script-box" id="loader-text">
+                loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+            </code>
+            <button class="classic-btn" onclick="copyLoader()">
+                Copy Script
+            </button>
+        </div>
+
+        <img id="item-4" src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="enormous-waifu">
+
+        <a id="item-5" href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
+            discord server
+        </a>
+
+        <img id="item-6" src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="enormous-waifu">
     </div>
-
-    <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
-        discord server
-    </a>
-
-    <p class="footer-text">powered by big rat technology</p>
 
     <script>
-        // Set actual URL based on current host
-        document.getElementById('loader-text').innerText = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
+        // Set actual URL
+        const loaderCode = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
+        document.getElementById('loader-text').innerText = loaderCode;
+
+        function shuffleElements() {
+            const container = document.getElementById('main-container');
+            const elements = Array.from(container.children);
+            
+            // Fisher-Yates shuffle algorithm
+            for (let i = elements.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                container.appendChild(elements[j]);
+            }
+        }
 
         function copyLoader() {
             const text = document.getElementById('loader-text').innerText;
             navigator.clipboard.writeText(text);
-            alert("copied to clipboard");
+            alert("copied");
+            shuffleElements(); // Chaos: shuffle every time they click copy
         }
+
+        // Shuffle on initial load
+        window.onload = shuffleElements;
     </script>
 
 </body>
