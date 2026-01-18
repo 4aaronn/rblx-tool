@@ -6,184 +6,160 @@
     <title>Rat are not tuff</title>
     <style>
         body { 
-            background-color: #0a0a0a; 
+            background-color: #050505; 
             font-family: "Courier New", monospace; 
             color: #ffffff; 
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
+            overflow-x: hidden;
         }
 
-        /* Side Layout Containers */
+        /* Sidebars */
         .sidebar {
             position: fixed;
             top: 0;
-            width: 250px;
+            width: 200px;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             padding: 10px;
-            overflow: hidden;
+            background: #000;
+            border: 1px solid #222;
+            overflow-y: auto;
             z-index: 1;
         }
 
-        .left-side { left: 0; border-right: 1px solid #333; }
-        .right-side { right: 0; border-left: 1px solid #333; }
+        .left-side { left: 0; }
+        .right-side { right: 0; }
 
-        /* Normal Sized Side Images */
+        /* Auto-loading Images */
         .side-img {
             width: 100%;
-            height: auto;
-            border: 2px solid #444;
-            filter: grayscale(0.5);
-            transition: 0.3s;
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            transition: transform 0.2s;
+            background: #111; /* Placeholder color */
+            min-height: 250px;
         }
 
         .side-img:hover {
-            filter: grayscale(0);
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(2deg);
+            border-color: #fff;
         }
 
-        /* Main Center Content */
+        /* Center Content */
         #main-container {
-            width: 500px;
-            margin: 100px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            z-index: 2;
+            max-width: 600px;
+            margin: 80px auto;
             text-align: center;
+            z-index: 2;
+            position: relative;
         }
 
         h1 { 
-            font-size: 50px; 
+            font-size: 55px; 
             color: #ff0000; 
-            text-transform: uppercase;
-            letter-spacing: -3px;
-            margin: 0;
-            background: #1a1a1a;
-            padding: 10px 20px;
-            border: 3px solid white;
+            text-shadow: 3px 3px 0px #fff;
+            margin-bottom: 40px;
         }
 
         .controls {
-            width: 100%;
             background: #111;
-            padding: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 0 20px rgba(255,0,0,0.2);
+            padding: 30px;
+            border: 2px solid #333;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
         }
 
         .script-box {
             background: #000;
-            border: 1px solid #ff0000;
-            padding: 15px;
+            border: 1px solid #00ff00;
+            padding: 20px;
             font-size: 14px;
             word-break: break-all;
-            margin-bottom: 20px;
             display: block;
-            color: #00ff00; /* Hacker green */
+            color: #00ff00;
+            margin-bottom: 25px;
         }
 
         .classic-btn {
-            background: #ff0000;
-            color: white;
+            background: #fff;
+            color: #000;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 20px;
+            font-size: 20px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 900;
             width: 100%;
+            text-transform: uppercase;
         }
 
-        .classic-btn:hover {
-            background: #cc0000;
-            box-shadow: 0 0 10px #ff0000;
-        }
+        .classic-btn:hover { background: #ff0000; color: #fff; }
 
         .discord-link {
+            display: inline-block;
+            margin-top: 30px;
             color: #5865F2;
-            font-size: 18px;
             text-decoration: none;
-            border-bottom: 1px dashed #5865F2;
-        }
-
-        /* Mobile Fix: Hide sidebars if screen is too small */
-        @media (max-width: 1000px) {
-            .sidebar { display: none; }
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar left-side" id="left-sidebar">
-        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="side-img">
-        <img src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="side-img">
-    </div>
+    <div class="sidebar left-side" id="left-sidebar"></div>
 
     <div id="main-container">
-        <h1 id="item-1">Rat are not tuff</h1>
-
-        <div id="item-3" class="controls">
-            <div style="font-size: 12px; margin-bottom: 10px; color: #888;">EXECUTOR SCRIPT V7</div>
+        <h1>Rat are not tuff</h1>
+        <div class="controls">
             <code class="script-box" id="loader-text">
                 loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
             </code>
-            <button class="classic-btn" onclick="copyLoader()">
-                COPY TO CLIPBOARD
-            </button>
+            <button class="classic-btn" onclick="copyLoader()">Copy Script</button>
         </div>
-
-        <a id="item-5" href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
-            join the discord
-        </a>
+        <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">JOIN DISCORD</a>
     </div>
 
-    <div class="sidebar right-side" id="right-sidebar">
-        <img src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="side-img">
-        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="side-img">
-    </div>
+    <div class="sidebar right-side" id="right-sidebar"></div>
 
     <script>
-        // Set dynamic URL
+        // 1. Set the script URL
         const loaderCode = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('loader-text').innerText = loaderCode;
+
+        // 2. Fetch Anime Images Automatically
+        async function fetchAnimeImages() {
+            try {
+                // Fetching random characters from Jikan (Unofficial MyAnimeList API)
+                const response = await fetch('https://api.jikan.moe/v4/top/characters?limit=10');
+                const data = await response.json();
+                
+                const leftBar = document.getElementById('left-sidebar');
+                const rightBar = document.getElementById('right-sidebar');
+
+                data.data.forEach((char, index) => {
+                    const img = document.createElement('img');
+                    img.src = char.images.jpg.image_url;
+                    img.className = 'side-img';
+                    
+                    if(index % 2 === 0) {
+                        leftBar.appendChild(img);
+                    } else {
+                        rightBar.appendChild(img);
+                    }
+                });
+            } catch (error) {
+                console.log("Failed to load images", error);
+            }
+        }
 
         function copyLoader() {
             const text = document.getElementById('loader-text').innerText;
             navigator.clipboard.writeText(text);
-            
-            // Visual feedback instead of an annoying alert
-            const btn = document.querySelector('.classic-btn');
-            const originalText = btn.innerText;
-            btn.innerText = "COPIED!";
-            btn.style.background = "#00ff00";
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#ff0000";
-            }, 2000);
-
-            // Keep the chaos: Shuffle the images in the sidebars
-            shuffleSidebars();
+            alert("COPIED!");
         }
 
-        function shuffleSidebars() {
-            const left = document.getElementById('left-sidebar');
-            const right = document.getElementById('right-sidebar');
-            
-            [left, right].forEach(bar => {
-                const imgs = Array.from(bar.children);
-                for (let i = imgs.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    bar.appendChild(imgs[j]);
-                }
-            });
-        }
+        // Initialize
+        window.onload = fetchAnimeImages;
     </script>
-
 </body>
 </html>
