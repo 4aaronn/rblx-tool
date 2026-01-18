@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sync.xyz | Elite Scripting</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
@@ -38,9 +37,11 @@
             
             <div class="flex flex-col md:flex-row gap-4 justify-center">
                 <div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex items-center">
-                    <code class="px-4 text-blue-400 text-sm" id="script-path">loadstring(game:HttpGet("https://sync.xyz/api/v7"))()</code>
+                    <code class="px-4 text-blue-400 text-sm" id="script-path">
+                        loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+                    </code>
                     <button onclick="copyScript()" class="bg-zinc-800 p-3 rounded-lg hover:bg-zinc-700 transition">
-                        <i class="fa-regular fa-copy"></i>
+                        <i class="fa-regular fa-copy" id="copy-icon"></i>
                     </button>
                 </div>
             </div>
@@ -66,14 +67,25 @@
     </section>
 
     <script>
-<div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex items-center">
-    <code class="px-4 text-blue-400 text-sm" id="script-path">
-        loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
-    </code>
-    <button onclick="copyScript()" class="bg-zinc-800 p-3 rounded-lg hover:bg-zinc-700 transition">
-        <i class="fa-regular fa-copy"></i>
-    </button>
-</div>
+        // Automatically set the URL based on current hosting
+        const scriptUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
+        document.getElementById('script-path').innerText = scriptUrl;
+
+        function copyScript() {
+            const text = document.getElementById('script-path').innerText;
+            navigator.clipboard.writeText(text);
+            
+            const icon = document.getElementById('copy-icon');
+            icon.classList.remove('fa-copy');
+            icon.classList.add('fa-check');
+            icon.style.color = '#10b981';
+            
+            setTimeout(() => {
+                icon.classList.remove('fa-check');
+                icon.classList.add('fa-copy');
+                icon.style.color = '';
+            }, 2000);
+        }
     </script>
 </body>
 </html>
