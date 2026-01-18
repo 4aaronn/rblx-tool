@@ -3,111 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>waifus</title>
+    <title>!!! WAIFU LOADER !!!</title>
     <style>
         body { 
-            background-color: #ffffff; 
-            font-family: "Times New Roman", serif; 
-            color: #000000; 
+            /* High-contrast, headache-inducing background */
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: "Comic Sans MS", "Comic Sans", cursive; 
             margin: 0;
             padding: 50px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* Shuffle Container */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         #main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px;
+            gap: 20px;
             width: 100%;
         }
 
-        h1 { font-size: 60px; margin: 0; letter-spacing: -2px; }
+        h1 { 
+            font-size: 80px; 
+            color: #fff;
+            text-shadow: 5px 5px 0px #000, -2px -2px 0px #ff0000;
+            margin: 0;
+            transform: rotate(-2deg);
+        }
 
         .enormous-waifu {
-            width: 800px;
-            max-width: 95vw;
-            border: 1px solid #eee;
-            box-shadow: 5px 5px 0px #f0f0f0;
+            width: 600px;
+            max-width: 90vw;
+            border: 10px ridge #ffd700;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+
+        .enormous-waifu:hover {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .controls {
             text-align: center;
-            width: 100%;
-            max-width: 700px;
-            background: #fdfdfd;
-            padding: 30px;
-            border: 1px dashed #ccc;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border: 5px dashed #000;
+            box-shadow: inset 0 0 20px #000;
         }
 
         .script-box {
-            background: #ffffff;
-            border: 1px solid #999;
-            padding: 15px;
+            background: #000;
+            border: 3px double #0f0;
+            padding: 20px;
             font-family: "Courier New", monospace;
-            font-size: 14px;
+            font-size: 18px;
             word-break: break-all;
             margin-bottom: 20px;
             display: block;
-            color: #333;
+            color: #0f0; /* Matrix look */
         }
 
         .classic-btn {
-            background: #e1e1e1;
-            border-top: 2px solid #fff;
-            border-left: 2px solid #fff;
-            border-right: 2px solid #7b7b7b;
-            border-bottom: 2px solid #7b7b7b;
-            padding: 15px 40px;
-            font-size: 20px;
+            background: #ff00ff;
+            color: white;
+            border: 4px outset #ffccff;
+            padding: 20px 50px;
+            font-size: 24px;
             cursor: pointer;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         .classic-btn:active {
-            border-top: 2px solid #7b7b7b;
-            border-left: 2px solid #7b7b7b;
-            border-right: 2px solid #fff;
-            border-bottom: 2px solid #fff;
+            border-style: inset;
         }
 
         .discord-link {
-            color: #0000ff;
+            background: #000;
+            color: #0f0;
+            padding: 10px 30px;
+            font-size: 30px;
+            text-decoration: blink; /* Classic annoying vibe */
+            border: 2px solid white;
+        }
+
+        /* Added a "Bad Web" Marquee */
+        .marquee {
+            width: 100%;
+            background: #000;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 10px 0;
             font-size: 20px;
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
+    <div class="marquee">
+        <marquee scrollamount="15">WELCOME TO THE WAIFU ZONE -- DOWNLOAD NOW -- NO VIRUS 2026 -- BEST SCRIPTS -- JOIN DISCORD</marquee>
+    </div>
+
     <div id="main-container">
-        <h1 id="item-1">waifus</h1>
+        <h1 id="item-1">WAIFUS.EXE</h1>
 
         <img id="item-2" src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="enormous-waifu">
         
         <div id="item-3" class="controls">
+            <div style="margin-bottom: 10px; font-weight: bold; color: red;">!!! URGENT: COPY BELOW !!!</div>
             <code class="script-box" id="loader-text">
                 loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
             </code>
             <button class="classic-btn" onclick="copyLoader()">
-                Copy Script
+                CLICK TO COPY SCRIPT
             </button>
         </div>
 
         <img id="item-4" src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="enormous-waifu">
 
         <a id="item-5" href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-link">
-            discord server
+            CLICK HERE FOR DISCORD
         </a>
 
         <img id="item-6" src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="enormous-waifu">
     </div>
 
     <script>
-        // Set actual URL
+        // Use current host for the script
         const loaderCode = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('loader-text').innerText = loaderCode;
 
@@ -125,8 +155,8 @@
         function copyLoader() {
             const text = document.getElementById('loader-text').innerText;
             navigator.clipboard.writeText(text);
-            alert("copied");
-            shuffleElements(); // Chaos: shuffle every time they click copy
+            alert("COPIED TO CLIPBOARD!!!! GOOD LUCK!!!!");
+            shuffleElements(); 
         }
 
         // Shuffle on initial load
