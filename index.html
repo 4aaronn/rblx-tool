@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync.xyz | Elite Scripting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+        body { background-color: #050505; font-family: 'Space+Grotesk', sans-serif; color: white; overflow-x: hidden; }
+        .glow { box-shadow: 0 0 20px rgba(10, 59, 255, 0.4); }
+        .gradient-text { background: linear-gradient(90deg, #4f46e5, #0a3bff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-bg { background: radial-gradient(circle at center, #0a3bff22 0%, transparent 70%); }
+    </style>
+</head>
+<body>
+
+    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter">SYNC<span class="text-blue-600">.XYZ</span></div>
+        <div class="space-x-8 hidden md:flex text-sm uppercase tracking-widest opacity-70">
+            <a href="#" class="hover:text-blue-500 transition">Features</a>
+            <a href="#" class="hover:text-blue-500 transition">Showcase</a>
+            <a href="#" class="hover:text-blue-500 transition">Status</a>
+        </div>
+        <button class="bg-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition glow">GET KEY</button>
+    </nav>
+
+    <main class="relative flex flex-col items-center justify-center min-h-[80vh] text-center px-4 hero-bg">
+        <div id="hero-content">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tighter">
+                UNLEASH <br> <span class="gradient-text">POLARIZED V7</span>
+            </h1>
+            <p class="text-gray-400 max-w-lg mx-auto mb-10 text-lg">
+                The most advanced combat suite ever created. Engineered for performance, designed for dominance.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex items-center">
+                    <code class="px-4 text-blue-400 text-sm" id="script-path">loadstring(game:HttpGet("https://sync.xyz/api/v7"))()</code>
+                    <button onclick="copyScript()" class="bg-zinc-800 p-3 rounded-lg hover:bg-zinc-700 transition">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="max-w-6xl mx-auto py-20 px-6 grid md:grid-cols-3 gap-8">
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition group">
+            <i class="fa-solid fa-crosshairs text-3xl text-blue-600 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Adaptive Aimbot</h3>
+            <p class="text-zinc-500 text-sm">Silent aim and smoothness prediction that bypasses standard anti-cheats.</p>
+        </div>
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition">
+            <i class="fa-solid fa-eye text-3xl text-blue-600 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Enhanced ESP</h3>
+            <p class="text-zinc-500 text-sm">Skeleton, Tracers, and Health bars with 0 frame-rate drop.</p>
+        </div>
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition">
+            <i class="fa-solid fa-bolt text-3xl text-blue-600 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Executor Only</h3>
+            <p class="text-zinc-500 text-sm">Advanced source protection. Site access restricted to valid clients.</p>
+        </div>
+    </section>
+
+    <script>
+        function copyScript() {
+            const text = 'loadstring(game:HttpGet("https://sync.xyz/api/v7"))()';
+            navigator.clipboard.writeText(text);
+            alert("Loader copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
