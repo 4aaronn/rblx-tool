@@ -3,169 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>big rat | premium</title>
+    <title>Big Rat | Script</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --retro-gray: #c0c0c0;
-            --retro-blue: #000080;
-        }
-
         body { 
-            background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
-            font-family: 'Courier New', Courier, monospace; 
-            color: white; 
+            background-color: #f9fafb;
+            font-family: 'Inter', sans-serif;
+            color: #111827;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding-top: 50px;
-            overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* Animated Rat */
-        .big-rat {
-            width: 400px;
-            max-width: 80vw;
-            height: auto;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
-            animation: float 4s ease-in-out infinite;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .big-rat:hover {
-            transform: scale(1.1) rotate(5deg);
+        /* Smooth Floating Animation */
+        .rat-container {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* Window Container (The Classic Part) */
-        .window {
-            background: var(--retro-gray);
-            border: 3px outset #fff;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
-            padding: 4px;
-            width: 90%;
-            max-width: 600px;
-            color: black;
+        .big-rat {
+            width: 320px;
+            height: auto;
+            filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.1));
         }
 
-        .window-header {
-            background: linear-gradient(90deg, #000080, #1084d0);
-            color: white;
-            padding: 5px 10px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .script-display {
-            background: #000;
-            color: #0f0; /* Terminal Green */
-            border: 2px inset #fff;
-            padding: 15px;
-            font-family: 'Consolas', monospace;
-            font-size: 14px;
-            word-break: break-all;
-            margin: 10px 0;
-            box-shadow: inset 0 0 10px #000;
-        }
-
-        /* Modernized Classic Button */
-        .classic-button {
-            background: var(--retro-gray);
-            border: 2px outset #fff;
-            padding: 10px 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.1s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .classic-button:active {
-            border-style: inset;
-            transform: translate(1px, 1px);
-        }
-
-        /* Toast Animation */
-        #toast {
-            visibility: hidden;
-            min-width: 200px;
-            background-color: #333;
-            color: #fff;
+        /* Modern Card Styling */
+        .main-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             text-align: center;
-            border-radius: 2px;
+        }
+
+        /* Code Box */
+        .code-box {
+            background: #f3f4f6;
+            border-radius: 12px;
             padding: 16px;
+            font-family: 'ui-monospace', monospace;
+            font-size: 13px;
+            color: #374151;
+            word-break: break-all;
+            margin: 24px 0;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        /* Modern Button */
+        .copy-btn {
+            background: #111827;
+            color: white;
+            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 12px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .copy-btn:hover {
+            background: #374151;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Custom Toast */
+        #toast {
             position: fixed;
-            z-index: 1;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: bottom 0.4s ease;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        #toast.visible {
             bottom: 30px;
-            border: 2px solid white;
         }
-
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body>
 
-    <h1 class="text-6xl font-black mb-8 italic tracking-tighter uppercase">big rat</h1>
-
-    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
-
-    <div class="window mt-10">
-        <div class="window-header">
-            <span>🐀 big_rat_executor.exe</span>
-            <div class="flex gap-1">
-                <div class="bg-gray-300 w-4 h-4 border border-black text-black text-[10px] flex items-center justify-center">_</div>
-                <div class="bg-gray-300 w-4 h-4 border border-black text-black text-[10px] flex items-center justify-center">X</div>
-            </div>
-        </div>
-        
-        <div class="p-4">
-            <p class="text-xs mb-2">v7.0 Stable Release</p>
-            <code class="script-display" id="script-path">
-                loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
-            </code>
-            
-            <div class="flex justify-center mt-4">
-                <button class="classic-button" onclick="copyScript()">
-                    Copy to Clipboard
-                </button>
-            </div>
-        </div>
+    <div class="rat-container mb-8">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
     </div>
 
-    <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="mt-10 opacity-70 hover:opacity-100 transition-opacity text-sm underline decoration-dotted">
-        [ join the discord ]
-    </a>
+    <div class="main-card">
+        <h1 class="text-3xl font-extrabold tracking-tight mb-2">big rat</h1>
+        <p class="text-gray-500 text-sm">Official script loader for the community.</p>
+
+        <div class="code-box" id="script-path">
+            loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+        </div>
+
+        <button class="copy-btn" onclick="copyScript()">
+            Copy Script
+        </button>
+
+        <div class="mt-6">
+            <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-400 hover:text-indigo-600 transition-colors text-sm font-medium">
+                Join our Discord server →
+            </a>
+        </div>
+    </div>
 
     <div id="toast">Copied to clipboard!</div>
 
     <script>
-        // Auto-update URL logic
+        // Set dynamic URL
         const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('script-path').innerText = currentUrl;
 
         function copyScript() {
             const text = document.getElementById('script-path').innerText;
-            navigator.clipboard.writeText(text);
-            
-            // Modern Toast Notification
-            const toast = document.getElementById("toast");
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById("toast");
+                toast.classList.add("visible");
+                setTimeout(() => {
+                    toast.classList.remove("visible");
+                }, 2500);
+            });
         }
     </script>
 
