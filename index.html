@@ -12,63 +12,62 @@
             background-color: #000;
             color: #fff;
             margin: 0;
-            overflow: hidden; 
-        }
-
-        /* Loading Screen Overlay */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #000;
+            overflow-x: hidden;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 100;
-            transition: opacity 0.6s ease;
+            min-height: 100vh;
         }
 
-        /* Content Entrance Animation */
-        .content-ready {
+        /* --- Intro Animations --- */
+        .intro-rat {
             opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px) scale(0.9);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .loaded .content-ready {
-            opacity: 1;
-            transform: scale(1);
+        .intro-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
 
-        /* Ultra Dark Card Styling */
-        .main-card {
-            background-color: #000;
-            border: 1px solid #111;
-            border-radius: 28px;
-            box-shadow: 0 0 50px rgba(0,0,0,1);
+        @keyframes reveal {
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .rat-anim {
-            animation: float 5s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.05));
+        /* Floating Rat Effect */
+        .rat-float {
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-15px) scale(1.02); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- UI Elements --- */
+        .main-card {
+            background-color: #000;
+            border: 1px solid #111;
+            border-radius: 32px;
+            box-shadow: 0 0 60px rgba(0,0,0,0.8);
         }
 
         .code-box {
             background: #050505;
-            border: 1px solid #111;
-            color: #555;
+            border: 1px solid #151515;
+            color: #444;
             font-family: 'ui-monospace', monospace;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .code-box:hover { color: #888; }
+        .code-box:hover {
+            color: #888;
+            border-color: #222;
+        }
 
-        /* Smooth Toast */
+        /* Toast Popup */
         #toast {
             position: fixed;
             bottom: -60px;
@@ -76,104 +75,86 @@
             transform: translateX(-50%);
             background: #fff;
             color: #000;
-            padding: 12px 28px;
+            padding: 12px 30px;
             border-radius: 99px;
-            font-size: 13px;
-            font-weight: 800;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 99;
+            z-index: 100;
         }
         #toast.visible { bottom: 40px; }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6">
+<body class="p-6">
 
-    <div id="loader">
-        <div class="relative">
-            <div class="absolute inset-0 blur-2xl bg-white/10 rounded-full"></div>
-            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-16 relative" alt="Loading">
-        </div>
-        <div class="mt-6 text-[10px] tracking-[0.5em] text-gray-500 font-bold animate-pulse">ESTABLISHING CONNECTION</div>
-    </div>
-
-    <div class="content-ready flex flex-col items-center w-full">
-        <div class="rat-anim mb-10">
-            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-56 h-auto" alt="RAT">
+    <div class="flex flex-col items-center w-full max-w-md">
+        
+        <div class="intro-rat mb-10">
+            <div class="rat-float">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-52 h-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.05)]" alt="RAT">
+            </div>
         </div>
 
-        <div class="main-card p-10 w-full max-w-md text-center">
-            <h1 class="text-5xl font-black tracking-tighter mb-2">big rat</h1>
-            <p class="text-gray-600 text-xs font-medium uppercase tracking-[0.2em] mb-8">Internal API v7.4</p>
+        <div class="intro-card main-card p-10 w-full text-center">
+            <h1 class="text-5xl font-black tracking-tighter mb-1">big rat</h1>
+            <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-8">System Exec v7.4</p>
 
             <div class="bg-[#050505] border border-[#111] rounded-2xl p-6 mb-6">
-                <p class="text-[9px] uppercase tracking-[0.3em] text-gray-600 font-black mb-2">Total Global Executions</p>
+                <p class="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2">Authenticated Runs</p>
                 <p id="exec-count" class="text-4xl font-mono font-bold text-white tracking-tighter">100</p>
             </div>
 
-            <div class="code-box text-left p-4 rounded-xl text-[11px] break-all mb-6 cursor-pointer" onclick="copyAndIncrement()">
+            <div class="code-box text-left p-4 rounded-xl text-[10px] break-all mb-6 cursor-pointer" onclick="copyAndIncrement()">
                 <span id="script-path">loadstring(game:HttpGet("https://..."))()</span>
             </div>
 
-            <button class="w-full py-4 bg-white hover:bg-gray-100 text-black font-black rounded-xl transition-all active:scale-[0.96] shadow-[0_0_20px_rgba(255,255,255,0.1)]" onclick="copyAndIncrement()">
-                COPY TO CLIPBOARD
+            <button class="w-full py-4 bg-white hover:bg-gray-200 text-black font-black rounded-xl transition-all active:scale-[0.96] shadow-xl" onclick="copyAndIncrement()">
+                GET SCRIPT
             </button>
 
-            <div class="mt-8 flex justify-center gap-6">
-                <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-700 hover:text-white text-[10px] font-black transition-all tracking-widest uppercase">
-                    Discord
-                </a>
-                <span class="text-gray-800">/</span>
-                <span class="text-green-500 text-[10px] font-black tracking-widest uppercase animate-pulse">Online</span>
+            <div class="mt-8 flex justify-center items-center gap-4">
+                <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-700 hover:text-white text-[10px] font-black transition-all tracking-widest uppercase">Discord</a>
+                <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-gray-400 text-[9px] font-black uppercase tracking-widest">Active</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="toast">LOADER COPIED</div>
+    <div id="toast">COPIED TO CLIPBOARD</div>
 
     <script>
-        // --- Execution Counter Logic ---
+        // --- Counter Logic ---
         let baseCount = parseInt(localStorage.getItem('rat_execs')) || 100;
         const countElement = document.getElementById('exec-count');
-        
-        // Display initial count
         countElement.innerText = baseCount.toLocaleString();
 
-        // Simulate some background "real" activity
+        // Background ticks
         setInterval(() => {
-            if (Math.random() > 0.7) {
-                baseCount += 1;
+            if (Math.random() > 0.8) {
+                baseCount += Math.floor(Math.random() * 2) + 1;
                 countElement.innerText = baseCount.toLocaleString();
                 localStorage.setItem('rat_execs', baseCount);
             }
-        }, 8000);
+        }, 10000);
 
-        // --- Loader Logic ---
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                    document.body.classList.add('loaded');
-                }, 600);
-            }, 1200);
-        });
-
-        // --- API Link Generation ---
-        // This generates the link that hits your Vercel handler
+        // --- API URL Generator ---
         const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('script-path').innerText = currentUrl;
 
         function copyAndIncrement() {
-            // Copy to clipboard
             const text = document.getElementById('script-path').innerText;
             navigator.clipboard.writeText(text);
 
-            // Increment UI
+            // Increment count on click
             baseCount++;
             countElement.innerText = baseCount.toLocaleString();
             localStorage.setItem('rat_execs', baseCount);
 
-            // Show Toast
+            // Toast effect
             const toast = document.getElementById("toast");
             toast.classList.add("visible");
             setTimeout(() => { toast.classList.remove("visible"); }, 2000);
