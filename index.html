@@ -1,139 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-tag" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Rat | Script</title>
+    <title>Big Rat | Loader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
         body { 
-            background-color: #f9fafb;
             font-family: 'Inter', sans-serif;
-            color: #111827;
+            background-color: #000000;
+            color: #ffffff;
             margin: 0;
+            overflow: hidden; /* Prevent scroll during loading */
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            z-index: 100;
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        /* Smooth Floating Animation */
-        .rat-container {
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .loader-rat {
+            width: 80px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Main Content Animation */
+        .content-ready {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .loaded .content-ready {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pure Black Window */
+        .main-card {
+            background-color: #000000;
+            border: 1px solid #222;
+            box-shadow: 0 0 40px rgba(0,0,0,1), 0 0 20px rgba(255,255,255,0.02);
+            border-radius: 24px;
+        }
+
+        .rat-float {
             animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
         }
 
-        .big-rat {
-            width: 320px;
-            height: auto;
-            filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.1));
-        }
-
-        /* Modern Card Styling */
-        .main-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 24px;
-            padding: 40px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-
-        /* Code Box */
         .code-box {
-            background: #f3f4f6;
-            border-radius: 12px;
-            padding: 16px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            color: #888;
             font-family: 'ui-monospace', monospace;
-            font-size: 13px;
-            color: #374151;
-            word-break: break-all;
-            margin: 24px 0;
-            border: 1px solid #e5e7eb;
-            text-align: left;
         }
 
-        /* Modern Button */
-        .copy-btn {
-            background: #111827;
-            color: white;
-            font-weight: 600;
-            padding: 12px 32px;
-            border-radius: 12px;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        .copy-btn:hover {
-            background: #374151;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .copy-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Custom Toast */
+        /* Toast */
         #toast {
             position: fixed;
-            bottom: -50px;
+            bottom: -60px;
             left: 50%;
             transform: translateX(-50%);
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
+            background: #ffffff;
+            color: #000;
+            padding: 10px 20px;
             border-radius: 99px;
             font-size: 14px;
-            font-weight: 500;
-            transition: bottom 0.4s ease;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            font-weight: 600;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 60;
         }
-
-        #toast.visible {
-            bottom: 30px;
-        }
+        #toast.visible { bottom: 30px; }
     </style>
 </head>
-<body>
+<body class="flex flex-col items-center justify-center min-h-screen p-6">
 
-    <div class="rat-container mb-8">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="big-rat" alt="RAT">
+    <div id="loader">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="loader-rat" alt="Loading">
+        <div class="mt-4 text-xs tracking-[0.3em] uppercase opacity-40 font-bold">Initializing v7</div>
     </div>
 
-    <div class="main-card">
-        <h1 class="text-3xl font-extrabold tracking-tight mb-2">big rat</h1>
-        <p class="text-gray-500 text-sm">Official script loader for the community.</p>
-
-        <div class="code-box" id="script-path">
-            loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+    <div class="content-ready flex flex-col items-center w-full">
+        <div class="rat-float mb-12">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-64 h-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]" alt="RAT">
         </div>
 
-        <button class="copy-btn" onclick="copyScript()">
-            Copy Script
-        </button>
+        <div class="main-card p-8 w-full max-w-md text-center">
+            <h1 class="text-4xl font-extrabold tracking-tighter mb-1">big rat</h1>
+            <p class="text-gray-500 text-sm mb-8">Performance optimized for speed.</p>
 
-        <div class="mt-6">
-            <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-400 hover:text-indigo-600 transition-colors text-sm font-medium">
-                Join our Discord server →
-            </a>
+            <div class="bg-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-4 mb-6">
+                <p class="text-[10px] uppercase tracking-widest text-gray-600 font-bold mb-1">Live Executions</p>
+                <p id="exec-count" class="text-2xl font-mono font-bold text-white">100</p>
+            </div>
+
+            <div class="code-box text-left p-4 rounded-xl text-xs break-all mb-6" id="script-path">
+                loadstring(game:HttpGet("https://undetectedscriptlol.vercel.app/api/v7"))()
+            </div>
+
+            <button class="w-full py-4 bg-white hover:bg-gray-200 text-black font-bold rounded-xl transition-all active:scale-[0.97]" onclick="copyScript()">
+                Copy Script
+            </button>
+
+            <div class="mt-8">
+                <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-500 hover:text-white text-xs transition-colors tracking-wide">
+                    DISCORD COMMUNITY
+                </a>
+            </div>
         </div>
     </div>
 
-    <div id="toast">Copied to clipboard!</div>
+    <div id="toast">COPIED TO CLIPBOARD</div>
 
     <script>
-        // Set dynamic URL
+        // Simulate Loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+                document.body.style.overflow = 'auto';
+                document.body.classList.add('loaded');
+            }, 1800); // 1.8 seconds loading time
+        });
+
+        // Dynamic Count
+        let count = 100;
+        const countElement = document.getElementById('exec-count');
+        setInterval(() => {
+            if (Math.random() > 0.4) {
+                count += Math.floor(Math.random() * 2) + 1;
+                countElement.innerText = count.toLocaleString();
+            }
+        }, 4000);
+
+        // Path Logic
         const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('script-path').innerText = currentUrl;
 
@@ -142,12 +167,9 @@
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById("toast");
                 toast.classList.add("visible");
-                setTimeout(() => {
-                    toast.classList.remove("visible");
-                }, 2500);
+                setTimeout(() => { toast.classList.remove("visible"); }, 2000);
             });
         }
     </script>
-
 </body>
 </html>
