@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Rat | External & Script</title>
+    <title>Big Rat | Cafe Loader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
@@ -19,12 +19,7 @@
             min-height: 100vh;
         }
 
-        /* --- Scrollbar --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-
-        /* --- Intro Animations --- */
+        /* --- Animations --- */
         .intro-rat {
             opacity: 0;
             transform: translateY(30px) scale(0.9);
@@ -47,34 +42,24 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* --- UI Elements --- */
+        /* --- UI Styling --- */
         .main-card {
             background-color: #000;
             border: 1px solid #111;
             border-radius: 32px;
             box-shadow: 0 0 60px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
         }
+
+        .tab-btn { opacity: 0.4; transition: 0.3s; border-bottom: 2px solid transparent; }
+        .tab-btn.active { opacity: 1; border-color: #fff; }
 
         .code-box {
             background: #050505;
             border: 1px solid #151515;
-            color: #666;
+            color: #555;
             font-family: 'ui-monospace', monospace;
-            transition: all 0.3s ease;
-        }
-        
-        .code-box:hover { border-color: #333; color: #aaa; }
-
-        .status-dot {
-            box-shadow: 0 0 10px currentColor;
         }
 
-        /* Tabs */
-        .tab-btn { opacity: 0.5; transition: 0.2s; border-bottom: 2px solid transparent; }
-        .tab-btn.active { opacity: 1; border-color: #fff; }
-
-        /* Toast Popup */
         #toast {
             position: fixed;
             bottom: -60px;
@@ -84,196 +69,151 @@
             color: #000;
             padding: 12px 30px;
             border-radius: 99px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 900;
-            letter-spacing: 1px;
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 100;
-            white-space: nowrap;
         }
         #toast.visible { bottom: 40px; }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body class="p-4">
 
     <div class="flex flex-col items-center w-full max-w-lg">
         
         <div class="intro-rat mb-8">
             <div class="rat-float">
-                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-32 sm:w-40 h-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.05)]" alt="RAT">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-36 h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.1)]" alt="RAT">
             </div>
         </div>
 
         <div class="intro-card main-card w-full overflow-hidden">
             
             <div class="flex border-b border-[#111] bg-[#020202]">
-                <button onclick="switchTab('script')" id="btn-script" class="tab-btn active flex-1 py-4 text-[10px] font-black uppercase tracking-widest">Script</button>
-                <button onclick="switchTab('external')" id="btn-external" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-widest">External</button>
-                <button onclick="switchTab('offsets')" id="btn-offsets" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-widest">Offsets</button>
+                <button onclick="switchTab('script')" id="btn-script" class="tab-btn active flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Script</button>
+                <button onclick="switchTab('loader')" id="btn-loader" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Loader</button>
+                <button onclick="switchTab('offsets')" id="btn-offsets" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Live Data</button>
             </div>
 
-            <div class="p-8 sm:p-10 text-center min-h-[400px] flex flex-col justify-center">
+            <div class="p-10 text-center min-h-[420px] flex flex-col justify-center">
                 
-                <h1 class="text-4xl font-black tracking-tighter mb-1">big rat</h1>
-                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-8">System Exec v7.4</p>
+                <h1 class="text-5xl font-black tracking-tighter mb-1">big rat</h1>
+                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-10">System Exec v7.4</p>
 
                 <div id="tab-script" class="tab-content block">
-                    <div class="bg-[#050505] border border-[#111] rounded-2xl p-4 mb-6">
-                        <p class="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-1">Executions</p>
-                        <p id="exec-count" class="text-3xl font-mono font-bold text-white tracking-tighter">100</p>
+                    <div class="bg-[#050505] border border-[#111] rounded-2xl p-6 mb-6">
+                        <p class="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2">Authenticated Runs</p>
+                        <p id="exec-count" class="text-4xl font-mono font-bold text-white tracking-tighter">100</p>
                     </div>
 
-                    <div class="code-box text-left p-4 rounded-xl text-[10px] break-all mb-4 cursor-pointer relative group" onclick="copyToClipboard(this.innerText)">
-                        <span id="script-path" class="opacity-80 group-hover:opacity-100">loadstring(game:HttpGet("..."))()</span>
-                        <div class="absolute right-3 top-3 opacity-0 group-hover:opacity-100 transition text-[9px] text-white bg-gray-800 px-2 rounded">COPY</div>
+                    <div class="code-box text-left p-4 rounded-xl text-[10px] break-all mb-6 cursor-pointer hover:border-white/20 transition" onclick="copyToClipboard(this.innerText)">
+                        <span id="script-path">loadstring(game:HttpGet("..."))()</span>
                     </div>
 
-                    <button class="w-full py-4 bg-white hover:bg-gray-200 text-black font-black rounded-xl transition-all active:scale-[0.96] shadow-xl uppercase tracking-widest text-xs" onclick="copyToClipboard(document.getElementById('script-path').innerText)">
-                        Copy Script
+                    <button class="w-full py-4 bg-white hover:bg-gray-200 text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase" onclick="copyToClipboard(document.getElementById('script-path').innerText)">
+                        Get Script
                     </button>
                 </div>
 
-                <div id="tab-external" class="tab-content hidden">
-                    <div class="border border-green-900/30 bg-green-900/5 rounded-2xl p-6 mb-6 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
-                        <p class="text-[9px] uppercase tracking-[0.3em] text-green-500 font-black mb-2">Status: Undetected</p>
-                        <div class="flex items-center justify-center gap-2 mb-1">
-                            <span class="text-2xl font-bold text-white">Cafe.exe</span>
-                        </div>
-                        <p class="text-[10px] text-gray-500">External Client v1.0</p>
-                    </div>
-
-                    <div id="version-container" class="mb-6 text-left p-4 border border-[#111] rounded-xl bg-[#030303]">
-                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest mb-2">Target Version</p>
-                        <div class="flex items-center gap-2">
-                            <div class="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse status-dot"></div>
-                            <span id="roblox-version" class="text-xs font-mono text-gray-300">Fetching...</span>
+                <div id="tab-loader" class="tab-content hidden">
+                    <div class="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-8 mb-6">
+                        <p class="text-[9px] uppercase tracking-[0.3em] text-blue-400 font-black mb-2">Primary Loader</p>
+                        <h2 class="text-3xl font-black text-white mb-2 italic">cafeincc.exe</h2>
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span id="roblox-version" class="text-[10px] font-mono text-gray-400 uppercase tracking-widest italic">Checking Version...</span>
                         </div>
                     </div>
 
-                    <a href="cafe.exe" download class="block w-full py-4 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-white text-white font-black rounded-xl transition-all active:scale-[0.96] shadow-xl uppercase tracking-widest text-xs mb-3">
-                        Download Cafe.exe
+                    <a href="cafeincc.exe" download class="block w-full py-4 bg-white text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                        Download Loader
                     </a>
+                    <p class="mt-4 text-[9px] text-gray-600 font-bold uppercase tracking-widest italic">Version Sync: Enabled</p>
                 </div>
 
-                <div id="tab-offsets" class="tab-content hidden">
-                     <p class="text-[10px] text-gray-500 mb-4">Live dump from workers.dev</p>
-                    
-                    <div class="grid grid-cols-2 gap-3 mb-4">
-                        <button onclick="fetchAndDisplayOffsets('json')" class="py-3 bg-[#080808] border border-[#222] hover:border-blue-500 text-gray-400 hover:text-white rounded-lg text-[10px] font-bold transition">
-                            GET JSON
-                        </button>
-                        <button onclick="fetchAndDisplayOffsets('hpp')" class="py-3 bg-[#080808] border border-[#222] hover:border-purple-500 text-gray-400 hover:text-white rounded-lg text-[10px] font-bold transition">
-                            GET HPP
-                        </button>
+                <div id="tab-offsets" class="tab-content hidden text-left">
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="fetchData('json')" class="py-3 bg-[#080808] border border-[#151515] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">JSON Data</button>
+                        <button onclick="fetchData('hpp')" class="py-3 bg-[#080808] border border-[#151515] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">HPP Header</button>
                     </div>
-
-                    <div class="relative">
-                        <textarea id="offset-display" readonly class="w-full h-32 bg-[#050505] border border-[#151515] rounded-xl p-3 text-[9px] font-mono text-gray-400 resize-none focus:outline-none focus:border-[#333]" placeholder="Select a format above to load offsets..."></textarea>
-                        <button onclick="copyToClipboard(document.getElementById('offset-display').value)" class="absolute bottom-3 right-3 bg-[#222] hover:bg-white hover:text-black text-white text-[9px] px-2 py-1 rounded transition">COPY</button>
-                    </div>
+                    <textarea id="offset-display" readonly class="w-full h-40 bg-[#050505] border border-[#111] rounded-xl p-4 text-[9px] font-mono text-gray-500 resize-none focus:outline-none" placeholder="// Select format to fetch live offsets..."></textarea>
                 </div>
 
             </div>
 
             <div class="p-6 bg-[#020202] border-t border-[#111] flex justify-between items-center">
-                <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-700 hover:text-white text-[9px] font-black transition-all tracking-widest uppercase">Discord</a>
+                <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-700 hover:text-white text-[10px] font-black transition-all tracking-widest uppercase">Discord</a>
                 <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                    <span class="text-gray-500 text-[9px] font-black uppercase tracking-widest">Online</span>
+                    <span class="text-gray-500 text-[9px] font-black uppercase tracking-widest">v7.4 Stable</span>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div id="toast">COPIED TO CLIPBOARD</div>
 
     <script>
-        // --- Tab Switching Logic ---
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
-            
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).classList.add('block');
-            document.getElementById(`btn-${tabName}`).classList.add('active');
+        // --- Navigation ---
+        function switchTab(t) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.replace('block', 'hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${t}`).classList.replace('hidden', 'block');
+            document.getElementById(`btn-${t}`).classList.add('active');
         }
 
-        // --- Fetch Data Logic (FIXED WITH PROXY) ---
-        const API_BASE = "https://offsets.ntgetwritewatch.workers.dev";
-        // We use a CORS proxy to bypass browser restrictions
-        const PROXY_URL = "https://api.allorigins.win/raw?url=";
+        // --- Proxy Logic ---
+        const PROXY = "https://api.allorigins.win/raw?url=";
+        const TARGET = "https://offsets.ntgetwritewatch.workers.dev";
 
-        // 1. Fetch Version
-        async function fetchVersion() {
+        async function fetchRobloxVersion() {
             const el = document.getElementById('roblox-version');
             try {
-                // Combine Proxy + Target URL
-                const response = await fetch(PROXY_URL + encodeURIComponent(`${API_BASE}/version`));
-                if (!response.ok) throw new Error("Offline");
-                const text = await response.text();
-                el.innerText = text || "Unknown";
-                el.classList.add("text-white");
+                const r = await fetch(PROXY + encodeURIComponent(`${TARGET}/version`));
+                const text = await r.text();
+                el.innerText = text.trim() || "LIVE";
             } catch (e) {
-                console.error(e);
-                el.innerText = "Error (CORS/Offline)";
-                el.classList.add("text-red-500");
+                el.innerText = "VERSION ERROR";
             }
         }
 
-        // 2. Fetch Offsets
-        async function fetchAndDisplayOffsets(type) {
-            const display = document.getElementById('offset-display');
-            display.value = "Fetching data...";
-            
-            const endpoint = type === 'json' ? '/offsets.json' : '/offsets.hpp';
-            
+        async function fetchData(ext) {
+            const area = document.getElementById('offset-display');
+            area.value = `// Fetching ${ext.toUpperCase()}...`;
             try {
-                // Combine Proxy + Target URL
-                const response = await fetch(PROXY_URL + encodeURIComponent(`${API_BASE}${endpoint}`));
-                if (!response.ok) throw new Error("Failed to fetch");
-                const text = await response.text();
-                display.value = text;
+                const r = await fetch(PROXY + encodeURIComponent(`${TARGET}/offsets.${ext}`));
+                const text = await r.text();
+                area.value = text;
             } catch (e) {
-                console.error(e);
-                display.value = "Failed to fetch offsets.\n\nPossible causes:\n1. The workers.dev server is down.\n2. The proxy is being blocked.\n3. You are opening this file locally without a web server.";
+                area.value = "// Error fetching data from workers.dev";
             }
         }
 
-        // Initialize Version Check on Load
-        fetchVersion();
-
-        // --- Existing Counter & Copy Logic ---
+        // --- Execution Logic ---
         let baseCount = parseInt(localStorage.getItem('rat_execs')) || 100;
-        const countElement = document.getElementById('exec-count');
-        countElement.innerText = baseCount.toLocaleString();
+        const countEl = document.getElementById('exec-count');
+        countEl.innerText = baseCount.toLocaleString();
 
         setInterval(() => {
-            if (Math.random() > 0.8) {
-                baseCount += Math.floor(Math.random() * 2) + 1;
-                countElement.innerText = baseCount.toLocaleString();
+            if (Math.random() > 0.7) {
+                baseCount += Math.floor(Math.random() * 3) + 1;
+                countEl.innerText = baseCount.toLocaleString();
                 localStorage.setItem('rat_execs', baseCount);
             }
-        }, 10000);
+        }, 8000);
 
-        const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
-        document.getElementById('script-path').innerText = currentUrl;
+        // Path Setup
+        document.getElementById('script-path').innerText = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
 
-        function copyToClipboard(text) {
-            if(!text) return;
-            navigator.clipboard.writeText(text);
-
+        function copyToClipboard(val) {
+            navigator.clipboard.writeText(val);
             baseCount++;
-            countElement.innerText = baseCount.toLocaleString();
-            localStorage.setItem('rat_execs', baseCount);
-
+            countEl.innerText = baseCount.toLocaleString();
             const toast = document.getElementById("toast");
             toast.classList.add("visible");
-            setTimeout(() => { toast.classList.remove("visible"); }, 2000);
+            setTimeout(() => toast.classList.remove("visible"), 2000);
         }
+
+        fetchRobloxVersion();
     </script>
 </body>
 </html>
