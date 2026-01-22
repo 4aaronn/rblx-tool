@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Rat | Cafe Loader</title>
+    <title>Big Rat | Loader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
@@ -47,7 +47,7 @@
             background-color: #000;
             border: 1px solid #111;
             border-radius: 32px;
-            box-shadow: 0 0 60px rgba(0,0,0,0.8);
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
         }
 
         .tab-btn { opacity: 0.4; transition: 0.3s; border-bottom: 2px solid transparent; }
@@ -58,6 +58,11 @@
             border: 1px solid #151515;
             color: #555;
             font-family: 'ui-monospace', monospace;
+        }
+
+        .status-badge {
+            background: #080808;
+            border: 1px solid #111;
         }
 
         #toast {
@@ -83,7 +88,7 @@
         
         <div class="intro-rat mb-8">
             <div class="rat-float">
-                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-36 h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.1)]" alt="RAT">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji/assets/svg/1f400.svg" class="w-36 h-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.05)]" alt="RAT">
             </div>
         </div>
 
@@ -92,13 +97,13 @@
             <div class="flex border-b border-[#111] bg-[#020202]">
                 <button onclick="switchTab('script')" id="btn-script" class="tab-btn active flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Script</button>
                 <button onclick="switchTab('loader')" id="btn-loader" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Loader</button>
-                <button onclick="switchTab('offsets')" id="btn-offsets" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Live Data</button>
+                <button onclick="switchTab('offsets')" id="btn-offsets" class="tab-btn flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em]">Offsets</button>
             </div>
 
-            <div class="p-10 text-center min-h-[420px] flex flex-col justify-center">
+            <div class="p-10 text-center min-h-[400px] flex flex-col justify-center">
                 
                 <h1 class="text-5xl font-black tracking-tighter mb-1">big rat</h1>
-                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-10">System Exec v7.4</p>
+                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-10">System Loader v7.4</p>
 
                 <div id="tab-script" class="tab-content block">
                     <div class="bg-[#050505] border border-[#111] rounded-2xl p-6 mb-6">
@@ -110,33 +115,32 @@
                         <span id="script-path">loadstring(game:HttpGet("..."))()</span>
                     </div>
 
-                    <button class="w-full py-4 bg-white hover:bg-gray-200 text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase" onclick="copyToClipboard(document.getElementById('script-path').innerText)">
-                        Get Script
+                    <button class="w-full py-4 bg-white hover:bg-gray-100 text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase" onclick="copyToClipboard(document.getElementById('script-path').innerText)">
+                        Copy Script
                     </button>
                 </div>
 
                 <div id="tab-loader" class="tab-content hidden">
-                    <div class="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-8 mb-6">
-                        <p class="text-[9px] uppercase tracking-[0.3em] text-blue-400 font-black mb-2">Primary Loader</p>
-                        <h2 class="text-3xl font-black text-white mb-2 italic">cafeincc.exe</h2>
+                    <div class="status-badge rounded-2xl p-8 mb-6">
+                        <p class="text-[9px] uppercase tracking-[0.3em] text-gray-500 font-black mb-2">Package: Win64 / .RAR</p>
+                        <h2 class="text-3xl font-black text-white mb-3">cafeincc.rar</h2>
                         <div class="flex items-center justify-center gap-2">
-                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span id="roblox-version" class="text-[10px] font-mono text-gray-400 uppercase tracking-widest italic">Checking Version...</span>
+                            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+                            <span id="roblox-version" class="text-[10px] font-mono text-gray-400 tracking-tighter uppercase">Checking Sync...</span>
                         </div>
                     </div>
 
-                    <a href="cafeincc.exe" download class="block w-full py-4 bg-white text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <a href="https://gofile.io/d/o9JhqT" target="_blank" class="block w-full py-4 bg-white text-black font-black rounded-xl transition-all active:scale-[0.96] text-xs uppercase text-center">
                         Download Loader
                     </a>
-                    <p class="mt-4 text-[9px] text-gray-600 font-bold uppercase tracking-widest italic">Version Sync: Enabled</p>
                 </div>
 
                 <div id="tab-offsets" class="tab-content hidden text-left">
                     <div class="grid grid-cols-2 gap-2 mb-4">
-                        <button onclick="fetchData('json')" class="py-3 bg-[#080808] border border-[#151515] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">JSON Data</button>
-                        <button onclick="fetchData('hpp')" class="py-3 bg-[#080808] border border-[#151515] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">HPP Header</button>
+                        <button onclick="fetchData('json')" class="py-3 bg-[#080808] border border-[#111] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">JSON</button>
+                        <button onclick="fetchData('hpp')" class="py-3 bg-[#080808] border border-[#111] hover:border-white/40 text-[9px] font-black uppercase tracking-widest transition rounded-lg">HPP</button>
                     </div>
-                    <textarea id="offset-display" readonly class="w-full h-40 bg-[#050505] border border-[#111] rounded-xl p-4 text-[9px] font-mono text-gray-500 resize-none focus:outline-none" placeholder="// Select format to fetch live offsets..."></textarea>
+                    <textarea id="offset-display" readonly class="w-full h-40 bg-[#050505] border border-[#111] rounded-xl p-4 text-[9px] font-mono text-gray-500 resize-none focus:outline-none" placeholder="// Fetch live offsets..."></textarea>
                 </div>
 
             </div>
@@ -144,7 +148,8 @@
             <div class="p-6 bg-[#020202] border-t border-[#111] flex justify-between items-center">
                 <a href="https://discord.gg/xmGsMdAeTQ" target="_blank" class="text-gray-700 hover:text-white text-[10px] font-black transition-all tracking-widest uppercase">Discord</a>
                 <div class="flex items-center gap-2">
-                    <span class="text-gray-500 text-[9px] font-black uppercase tracking-widest">v7.4 Stable</span>
+                    <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+                    <span class="text-gray-500 text-[9px] font-black uppercase tracking-widest">Active</span>
                 </div>
             </div>
         </div>
@@ -153,15 +158,19 @@
     <div id="toast">COPIED TO CLIPBOARD</div>
 
     <script>
-        // --- Navigation ---
         function switchTab(t) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.replace('block', 'hidden'));
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.add('hidden');
+                c.classList.remove('block');
+            });
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`tab-${t}`).classList.replace('hidden', 'block');
+            
+            const selected = document.getElementById(`tab-${t}`);
+            selected.classList.remove('hidden');
+            selected.classList.add('block');
             document.getElementById(`btn-${t}`).classList.add('active');
         }
 
-        // --- Proxy Logic ---
         const PROXY = "https://api.allorigins.win/raw?url=";
         const TARGET = "https://offsets.ntgetwritewatch.workers.dev";
 
@@ -170,44 +179,40 @@
             try {
                 const r = await fetch(PROXY + encodeURIComponent(`${TARGET}/version`));
                 const text = await r.text();
-                el.innerText = text.trim() || "LIVE";
+                el.innerText = `Synced: ${text.trim()}`;
             } catch (e) {
-                el.innerText = "VERSION ERROR";
+                el.innerText = "Sync Offline";
             }
         }
 
         async function fetchData(ext) {
             const area = document.getElementById('offset-display');
-            area.value = `// Fetching ${ext.toUpperCase()}...`;
+            area.value = `// Fetching...`;
             try {
                 const r = await fetch(PROXY + encodeURIComponent(`${TARGET}/offsets.${ext}`));
                 const text = await r.text();
                 area.value = text;
             } catch (e) {
-                area.value = "// Error fetching data from workers.dev";
+                area.value = "// Error fetching offsets.";
             }
         }
 
-        // --- Execution Logic ---
         let baseCount = parseInt(localStorage.getItem('rat_execs')) || 100;
         const countEl = document.getElementById('exec-count');
         countEl.innerText = baseCount.toLocaleString();
 
         setInterval(() => {
             if (Math.random() > 0.7) {
-                baseCount += Math.floor(Math.random() * 3) + 1;
+                baseCount += Math.floor(Math.random() * 2) + 1;
                 countEl.innerText = baseCount.toLocaleString();
                 localStorage.setItem('rat_execs', baseCount);
             }
-        }, 8000);
+        }, 10000);
 
-        // Path Setup
         document.getElementById('script-path').innerText = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
 
         function copyToClipboard(val) {
             navigator.clipboard.writeText(val);
-            baseCount++;
-            countEl.innerText = baseCount.toLocaleString();
             const toast = document.getElementById("toast");
             toast.classList.add("visible");
             setTimeout(() => toast.classList.remove("visible"), 2000);
