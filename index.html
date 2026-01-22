@@ -192,33 +192,34 @@
     <script>
         // --- Tab Switching Logic ---
         function switchTab(tabName) {
-            // Hide all contents
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
             
-            // Deactivate all buttons
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
-            // Activate specific
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
             document.getElementById(`tab-${tabName}`).classList.add('block');
             document.getElementById(`btn-${tabName}`).classList.add('active');
         }
 
-        // --- Fetch Data Logic ---
+        // --- Fetch Data Logic (FIXED WITH PROXY) ---
         const API_BASE = "https://offsets.ntgetwritewatch.workers.dev";
+        // We use a CORS proxy to bypass browser restrictions
+        const PROXY_URL = "https://api.allorigins.win/raw?url=";
 
         // 1. Fetch Version
         async function fetchVersion() {
             const el = document.getElementById('roblox-version');
             try {
-                const response = await fetch(`${API_BASE}/version`);
+                // Combine Proxy + Target URL
+                const response = await fetch(PROXY_URL + encodeURIComponent(`${API_BASE}/version`));
                 if (!response.ok) throw new Error("Offline");
                 const text = await response.text();
                 el.innerText = text || "Unknown";
                 el.classList.add("text-white");
             } catch (e) {
-                el.innerText = "Failed to fetch";
+                console.error(e);
+                el.innerText = "Error (CORS/Offline)";
                 el.classList.add("text-red-500");
             }
         }
@@ -231,12 +232,14 @@
             const endpoint = type === 'json' ? '/offsets.json' : '/offsets.hpp';
             
             try {
-                const response = await fetch(`${API_BASE}${endpoint}`);
+                // Combine Proxy + Target URL
+                const response = await fetch(PROXY_URL + encodeURIComponent(`${API_BASE}${endpoint}`));
                 if (!response.ok) throw new Error("Failed to fetch");
                 const text = await response.text();
                 display.value = text;
             } catch (e) {
-                display.value = "Error fetching offsets. Ensure the API is online and allows CORS.";
+                console.error(e);
+                display.value = "Failed to fetch offsets.\n\nPossible causes:\n1. The workers.dev server is down.\n2. The proxy is being blocked.\n3. You are opening this file locally without a web server.";
             }
         }
 
@@ -248,7 +251,6 @@
         const countElement = document.getElementById('exec-count');
         countElement.innerText = baseCount.toLocaleString();
 
-        // Background ticks
         setInterval(() => {
             if (Math.random() > 0.8) {
                 baseCount += Math.floor(Math.random() * 2) + 1;
@@ -257,7 +259,6 @@
             }
         }, 10000);
 
-        // Script URL
         const currentUrl = `loadstring(game:HttpGet("https://${window.location.host}/api/v7"))()`;
         document.getElementById('script-path').innerText = currentUrl;
 
