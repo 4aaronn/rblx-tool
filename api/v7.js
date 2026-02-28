@@ -14,7 +14,7 @@ export default function handler(req, res) {
     }
 
     // This is the code the executor receives
-    const luaScript = `loadstring(game:HttpGet("https://pastefy.app/02YmDjW1/raw"))()`;
+    const luaScript = `loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/62ca92994ba423b33a4429e32003cfb11917ba4c9a27abdbd08b7debd5bebfe9/download"))()`;
 
     res.setHeader('Content-Type', 'text/plain');
     return res.status(200).send(luaScript);
